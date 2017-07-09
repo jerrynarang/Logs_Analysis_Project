@@ -57,6 +57,8 @@ psql -d news
 * python3 LogsAnalysis.py
 
 ### Create Views
+
+### author_info
 ```sql
 CREATE VIEW author_info AS
 SELECT authors.name, articles.title, articles.slug
@@ -65,6 +67,7 @@ WHERE articles.author = authors.id
 ORDER BY authors.name;
 ```
 
+### path_view
 ```sql
 CREATE VIEW path_view AS
 SELECT path, COUNT(*) AS view
@@ -73,6 +76,7 @@ GROUP BY path
 ORDER BY path;
 ```
 
+### article_view
 ```sql
 CREATE VIEW article_view AS
 SELECT author_info.name, author_info.title, path_view.view
@@ -81,6 +85,7 @@ WHERE path_view.path = CONCAT('/article/', author_info.slug)
 ORDER BY author_info.name;
 ```
 
+### total_view
 ```sql
 CREATE VIEW total_view AS
 SELECT date(time), COUNT(*) AS views
@@ -89,6 +94,7 @@ GROUP BY date(time)
 ORDER BY date(time);
 ```
 
+### error_view
 ```sql
 CREATE VIEW error_view AS
 SELECT date(time), COUNT(*) AS errors
@@ -97,6 +103,7 @@ GROUP BY date(time)
 ORDER BY date(time);
 ```
 
+### error_percent
 ```sql
 CREATE VIEW error_percent AS
 SELECT total_view.date, (100.0*error_view.errors/total_view.views) AS percentage
