@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import psycopg2
 
 
@@ -19,7 +21,7 @@ def main():
     print("most popular three articles of all time:")
     for (title, view) in cur.fetchall():
         print("    {} - {} views".format(title, view))
-    print("-" * 70)
+    print("-" * 50)
 
     # Question 2 solution :
     sql_popular_authors = """
@@ -32,7 +34,7 @@ def main():
     print("most popular article authors of all time:")
     for (name, view) in cur.fetchall():
         print("    {} - {} views".format(name, view))
-    print("-" * 70)
+    print("-" * 50)
 
     # Question 3 solution :
     sql_more_than_one_percent_errors = """
@@ -42,8 +44,8 @@ def main():
     """
     cur.execute(sql_more_than_one_percent_errors)
     print("Days with more than 1% errors:")
-    for (date) in cur.fetchall():
-        print("    {}".format(date, percentage))
+    for (date,percentage) in cur.fetchall():
+        print("    {} - {}% errors".format(date,percentage))
     
 
     # Close communication with the database
